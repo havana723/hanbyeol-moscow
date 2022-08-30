@@ -190,11 +190,16 @@ function Gameboard() {
           <img
             src={background}
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            alt="background"
           />
         ) : null}
         <CharacterFlex>
           <CharacterContainter>
-            <img src={hanbyeol} style={{ width: "100%", height: "100%" }} />
+            <img
+              src={hanbyeol}
+              style={{ width: "100%", height: "100%" }}
+              alt="hanbyeol"
+            />
           </CharacterContainter>
         </CharacterFlex>
         <TextBoxContainer
