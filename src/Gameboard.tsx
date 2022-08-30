@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Button from "./components/button";
 import TextRenderer from "./components/textRenderer";
 import backgroundHotel from "./img/background-hotel.jpg";
@@ -158,7 +158,7 @@ function Gameboard() {
 
   const [end, setEnd] = useState<boolean>(false);
 
-  function handleClick(nextScript: Script | null) {
+  function changeScript(nextScript: Script | null) {
     console.log(nextScript);
 
     if (!nextScript) return;
@@ -183,6 +183,21 @@ function Gameboard() {
     setNext(nextScript.next ?? null);
   }
 
+  const handleKeyboard = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === "ArrowRight") {
+        if (isSelect) return;
+        changeScript(script.get(next ? next[0] : "") ?? null);
+      }
+    },
+    [next]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyboard);
+    return () => document.removeEventListener("keydown", handleKeyboard);
+  }, [handleKeyboard]);
+
   return (
     <GameboardContainer>
       <BackgroundContainer>
@@ -203,7 +218,7 @@ function Gameboard() {
           </CharacterContainter>
         </CharacterFlex>
         <TextBoxContainer
-          onClick={() => handleClick(script.get(next ? next[0] : "") ?? null)}
+          onClick={() => changeScript(script.get(next ? next[0] : "") ?? null)}
         >
           <TextBox>
             <TextRenderer text={text ?? ""} />
@@ -216,7 +231,9 @@ function Gameboard() {
         ) : null}
         {screenBlack ? (
           <BlackContainer
-            onClick={() => handleClick(script.get(next ? next[0] : "") ?? null)}
+            onClick={() =>
+              changeScript(script.get(next ? next[0] : "") ?? null)
+            }
           >
             <BlackTextBox>
               <TextRenderer text={text ?? ""} />
@@ -225,7 +242,9 @@ function Gameboard() {
         ) : null}
         {screenCenterBlack ? (
           <BlackCenterContainer
-            onClick={() => handleClick(script.get(next ? next[0] : "") ?? null)}
+            onClick={() =>
+              changeScript(script.get(next ? next[0] : "") ?? null)
+            }
           >
             <BlackCenterTextBox>
               <TextRenderer text={text ?? ""} />
@@ -240,7 +259,7 @@ function Gameboard() {
                     text={s}
                     key={s}
                     onClick={() =>
-                      handleClick(script.get(next ? next[i] : "") ?? null)
+                      changeScript(script.get(next ? next[i] : "") ?? null)
                     }
                   />
                 ))
@@ -251,7 +270,7 @@ function Gameboard() {
           <ReStartFlex>
             <Button
               text={"다시 시작하기"}
-              onClick={() => handleClick(script.get("chapter1") ?? null)}
+              onClick={() => changeScript(script.get("chapter1") ?? null)}
             />
           </ReStartFlex>
         ) : null}
