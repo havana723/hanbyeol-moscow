@@ -190,7 +190,7 @@ function Gameboard() {
         changeScript(script.get(next ? next[0] : "") ?? null);
       }
     },
-    [next]
+    [next, isSelect]
   );
 
   useEffect(() => {
