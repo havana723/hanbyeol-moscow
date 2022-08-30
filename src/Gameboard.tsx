@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Button from "./components/button";
 import TextRenderer from "./components/textRenderer";
 import backgroundHotel from "./img/background-hotel.jpg";
@@ -7,7 +7,6 @@ import hanbyeol from "./img/hanbyeol.png";
 import { Script, script } from "./script/script";
 
 const GameboardContainer = styled.div`
-  outline: none;
   aspect-ratio: 16 / 9;
   background-color: black;
   position: relative;
@@ -184,15 +183,23 @@ function Gameboard() {
     setNext(nextScript.next ?? null);
   }
 
-  const handleKeyboard: React.KeyboardEventHandler<HTMLElement> = (e) => {
-    if (e.key === "Enter" || e.key === "ArrowRight") {
-      if (next?.length !== 1) return;
-      changeScript(script.get(next[0]) ?? null);
-    }
-  };
+  const handleKeyboard = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === "ArrowRight") {
+        if (next?.length !== 1) return;
+        changeScript(script.get(next[0]) ?? null);
+      }
+    },
+    [next]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyboard);
+    return () => document.removeEventListener("keydown", handleKeyboard);
+  }, [handleKeyboard]);
 
   return (
-    <GameboardContainer tabIndex={0} onKeyDown={handleKeyboard}>
+    <GameboardContainer>
       <BackgroundContainer>
         {background ? (
           <img
