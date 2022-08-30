@@ -1092,6 +1092,7 @@ export const script = new Map<string, Script>([
     "chapter3-bad-end-1400",
     {
       text: "초조한 마음으로 승인되기만을 기다리던 한별이는, 예상보다 조금 늦은 답장을 받게 된다.",
+      screenBlack: "on",
       next: ["chapter3-bad-end-1500"],
     },
   ],
