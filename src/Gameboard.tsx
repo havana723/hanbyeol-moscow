@@ -159,7 +159,7 @@ function Gameboard() {
 
   const [end, setEnd] = useState<boolean>(false);
 
-  function handleClick(nextScript: Script | null) {
+  function changeScript(nextScript: Script | null) {
     console.log(nextScript);
 
     if (!nextScript) return;
@@ -187,7 +187,7 @@ function Gameboard() {
   const handleKeyboard: React.KeyboardEventHandler<HTMLElement> = (e) => {
     if (e.key === "Enter" || e.key === "ArrowRight") {
       if (next?.length !== 1) return;
-      handleClick(script.get(next[0]) ?? null);
+      changeScript(script.get(next[0]) ?? null);
     }
   };
 
@@ -211,7 +211,7 @@ function Gameboard() {
           </CharacterContainter>
         </CharacterFlex>
         <TextBoxContainer
-          onClick={() => handleClick(script.get(next ? next[0] : "") ?? null)}
+          onClick={() => changeScript(script.get(next ? next[0] : "") ?? null)}
         >
           <TextBox>
             <TextRenderer text={text ?? ""} />
@@ -224,7 +224,9 @@ function Gameboard() {
         ) : null}
         {screenBlack ? (
           <BlackContainer
-            onClick={() => handleClick(script.get(next ? next[0] : "") ?? null)}
+            onClick={() =>
+              changeScript(script.get(next ? next[0] : "") ?? null)
+            }
           >
             <BlackTextBox>
               <TextRenderer text={text ?? ""} />
@@ -233,7 +235,9 @@ function Gameboard() {
         ) : null}
         {screenCenterBlack ? (
           <BlackCenterContainer
-            onClick={() => handleClick(script.get(next ? next[0] : "") ?? null)}
+            onClick={() =>
+              changeScript(script.get(next ? next[0] : "") ?? null)
+            }
           >
             <BlackCenterTextBox>
               <TextRenderer text={text ?? ""} />
@@ -248,7 +252,7 @@ function Gameboard() {
                     text={s}
                     key={s}
                     onClick={() =>
-                      handleClick(script.get(next ? next[i] : "") ?? null)
+                      changeScript(script.get(next ? next[i] : "") ?? null)
                     }
                   />
                 ))
@@ -259,7 +263,7 @@ function Gameboard() {
           <ReStartFlex>
             <Button
               text={"다시 시작하기"}
-              onClick={() => handleClick(script.get("chapter1") ?? null)}
+              onClick={() => changeScript(script.get("chapter1") ?? null)}
             />
           </ReStartFlex>
         ) : null}
