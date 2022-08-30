@@ -1,3 +1,4 @@
+import backgroundHotel from ".././img/background-hotel.jpg";
 import backgroundRoom from ".././img/background-room.jpg";
 import backgroundTaxi from ".././img/background-taxi.jpg";
 
@@ -20,6 +21,7 @@ export const script = new Map<string, Script>([
       text: "제 1장 ~세렌디피티~",
       next: ["chapter1-100"],
       screenCenterBlack: "on",
+      background: backgroundHotel,
     },
   ],
   [
