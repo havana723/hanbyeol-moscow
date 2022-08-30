@@ -186,8 +186,8 @@ function Gameboard() {
   const handleKeyboard = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Enter" || e.key === "ArrowRight") {
-        if (next?.length !== 1) return;
-        changeScript(script.get(next[0]) ?? null);
+        if (isSelect) return;
+        changeScript(script.get(next ? next[0] : "") ?? null);
       }
     },
     [next]
