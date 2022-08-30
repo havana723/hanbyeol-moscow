@@ -969,7 +969,7 @@ export const script = new Map<string, Script>([
   [
     "chapter3-1100",
     {
-      text: "게다가 Pfizer 백신은 1차와 2차접종 사이 간격이 42이일였고, 그조차도 접종받기 너무나 어려웠다.",
+      text: "게다가 Pfizer 백신은 1차와 2차접종 사이 간격이 42일이었고, 그조차도 접종받기 너무나 어려웠다.",
       next: ["chapter3-1200"],
     },
   ],
