@@ -7,6 +7,7 @@ import hanbyeol from "./img/hanbyeol.png";
 import { Script, script } from "./script/script";
 
 const GameboardContainer = styled.div`
+  outline: none;
   aspect-ratio: 16 / 9;
   background-color: black;
   position: relative;
@@ -183,8 +184,15 @@ function Gameboard() {
     setNext(nextScript.next ?? null);
   }
 
+  const handleKeyboard: React.KeyboardEventHandler<HTMLElement> = (e) => {
+    if (e.key === "Enter" || e.key === "ArrowRight") {
+      if (next?.length !== 1) return;
+      handleClick(script.get(next[0]) ?? null);
+    }
+  };
+
   return (
-    <GameboardContainer>
+    <GameboardContainer tabIndex={0} onKeyDown={handleKeyboard}>
       <BackgroundContainer>
         {background ? (
           <img
